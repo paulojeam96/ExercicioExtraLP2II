@@ -39,7 +39,10 @@ public class UsuarioDAOConcreto implements GenericDAO {
             statement.setString(1, us.getNome());
             statement.setString(2, us.getEmail());
             //rs = statement.executeQuery();
-            resultado = statement.execute();
+            int resultado2 = statement.executeUpdate();
+            if(resultado2 > 0){
+                resultado = true;
+            }
         } catch (SQLException sQLException) {
             System.out.println(sQLException.getMessage());
         }

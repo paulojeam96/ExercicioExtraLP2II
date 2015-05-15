@@ -38,7 +38,10 @@ public class ArtistaDAOConcreto implements GenericDAO{
             statement = connection.prepareStatement(sql);
             statement.setString(1, a.getNome());
             //rs = statement.executeQuery();
-            resultado = statement.execute();
+            int resultado2 = statement.executeUpdate();
+            if(resultado2 > 0){
+                resultado = true;
+            }
         } catch (SQLException sQLException) {
             System.out.println(sQLException.getMessage());
         }
