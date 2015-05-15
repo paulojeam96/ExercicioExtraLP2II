@@ -7,6 +7,7 @@ package com.br.lp2.command;
 
 import com.br.lp2.dao.ArtistaDAOConcreto;
 import com.br.lp2.dao.GenericDAO;
+import com.br.lp2.javabeans.Artista;
 import java.io.IOException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,7 +24,8 @@ public class InserirArtista implements Command{
         nome = request.getParameter("nome");
         
         GenericDAO aDao = new ArtistaDAOConcreto();
-        boolean operacao = aDao.insert(nome);
+        Artista a = new Artista(nome);
+        boolean operacao = aDao.insert(a);
         
         try {
             if (operacao) {
