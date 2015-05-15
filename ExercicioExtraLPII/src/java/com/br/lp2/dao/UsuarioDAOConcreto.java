@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author 31448471
  */
-public class UsuarioDAOConcreto implements UsuarioDAO {
+public class UsuarioDAOConcreto implements GenericDAO {
 
     private static Connection connection;
     private static PreparedStatement statement;
@@ -29,14 +29,15 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public boolean insertUsuario(Usuario u) {
+    public boolean insert(Object o) {
         boolean resultado = false;
+        Usuario us = (Usuario)o;
 
         try {
             String sql = "INSERT INTO usuario (nome,email) VALUES(?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, u.getNome());
-            statement.setString(2, u.getEmail());
+            statement.setString(1, us.getNome());
+            statement.setString(2, us.getEmail());
             //rs = statement.executeQuery();
             resultado = statement.execute();
         } catch (SQLException sQLException) {
@@ -46,8 +47,8 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public ArrayList<Usuario> readUsuarios() {
-        ArrayList<Usuario> lista = new ArrayList();
+    public ArrayList<Object> read() {
+        ArrayList<Object> lista = new ArrayList();
 
         try {
             String sql = "SELECT * FROM usuario";
@@ -65,7 +66,7 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public Usuario readUsuariosById(int id) {
+    public Object readById(int id) {
         Usuario u = null;
         try {
             String sql = "SELECT * FROM usuario WHERE pk=?";
@@ -83,7 +84,7 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public Usuario readUsuariosByNome(String nome) {
+    public Object readByTitulo(String nome) {
         Usuario u = null;
 
         try {
@@ -102,13 +103,14 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public boolean updateUsuario(int id, Usuario u) {
+    public boolean update(int id, Object u) {
         boolean resultado = false;
+        Usuario us = (Usuario)u;
         try {
             String sql = "UPDATE usuario SET nome=?, email=? WHERE pk=?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, u.getNome());
-            statement.setString(2, u.getEmail());
+            statement.setString(1, us.getNome());
+            statement.setString(2, us.getEmail());
             statement.setInt(3, id);
             int r = statement.executeUpdate();
             if (r > 0) {
@@ -121,7 +123,7 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public boolean deleteUsuarioById(int id) {
+    public boolean deleteById(int id) {
         boolean res = false;
         try{
             String sql = "DELETE FROM usuario WHERE pk=?";
@@ -137,7 +139,7 @@ public class UsuarioDAOConcreto implements UsuarioDAO {
     }
 
     @Override
-    public boolean deleteUsuarioByNome(String nome) {
+    public boolean delete(String nome) {
         boolean res = false;
         try {
             String sql = "DELETE FROM usuario WHERE nome=?";

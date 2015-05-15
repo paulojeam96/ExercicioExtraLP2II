@@ -17,7 +17,7 @@ import java.util.ArrayList;
  *
  * @author 31448471
  */
-public class ObraDAOConcreto implements ObraDAO {
+public class ObraDAOConcreto implements GenericDAO {
 
     private static Connection connection;
     private static PreparedStatement statement;
@@ -29,14 +29,15 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public boolean insertObra(Obra o) {
+    public boolean insert(Object o) {
         boolean resultado = false;
+        Obra a = (Obra)o;
 
         try {
             String sql = "INSERT INTO obra (titulo, id_artista) VALUES(?,?)";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, o.getTitulo());
-            statement.setInt(2, o.getId_artista());
+            statement.setString(1, a.getTitulo());
+            statement.setInt(2, a.getArtista().getId());
             //rs = statement.executeQuery();
             resultado = statement.execute();
         } catch (SQLException sQLException) {
@@ -46,8 +47,8 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public ArrayList<Obra> readObras() {
-        ArrayList<Obra> lista = new ArrayList();
+    public ArrayList<Object> read() {
+        ArrayList<Object> lista = new ArrayList();
 
         try {
             String sql = "SELECT * FROM obra";
@@ -65,7 +66,7 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public Obra readObraById(int id) {
+    public Object readById(int id) {
         Obra o = null;
         try {
             String sql = "SELECT * FROM obra WHERE pk=?";
@@ -83,7 +84,7 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public Obra readObraByTitulo(String titulo) {
+    public Object readByTitulo(String titulo) {
         Obra o = null;
 
         try {
@@ -102,13 +103,14 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public boolean updateObra(int id, Obra o) {
+    public boolean update(int id, Object o) {
         boolean resultado = false;
+        Obra a = (Obra)o;
         try {
             String sql = "UPDATE obra SET titulo=?, id_artista=? WHERE pk=?";
             statement = connection.prepareStatement(sql);
-            statement.setString(1, o.getTitulo());
-            statement.setInt(2, o.getId_artista());
+            statement.setString(1, a.getTitulo());
+            statement.setInt(2, a.getArtista().getId());
             statement.setInt(3, id);
             int r = statement.executeUpdate();
             if (r > 0) {
@@ -121,7 +123,7 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public boolean deleteObraById(int id) {
+    public boolean deleteById(int id) {
         boolean resultado = false;
         
         try {
@@ -138,7 +140,7 @@ public class ObraDAOConcreto implements ObraDAO {
     }
 
     @Override
-    public boolean deleteObraByTitulo(String nome) {
+    public boolean delete(String nome) {
         boolean res = false;
         try{
             String sql = "DELETE FROM obra WHERE titulo=?";
