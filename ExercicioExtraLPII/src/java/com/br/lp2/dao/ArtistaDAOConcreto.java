@@ -59,6 +59,7 @@ public class ArtistaDAOConcreto implements GenericDAO{
             
             while (rs.next()) {
                 Artista a= new Artista(rs.getString("nome"));
+                a.setId(rs.getInt("pk"));
                 lista.add(a);
             }
         } catch (SQLException sQLException) {

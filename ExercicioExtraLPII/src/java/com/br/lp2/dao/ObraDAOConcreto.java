@@ -32,6 +32,7 @@ public class ObraDAOConcreto implements GenericDAO {
     public boolean insert(Object o) {
         boolean resultado = false;
         Obra a = (Obra)o;
+        System.out.println(a);
 
         try {
             String sql = "INSERT INTO obra (titulo, id_artista) VALUES(?,?)";

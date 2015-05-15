@@ -27,15 +27,16 @@ public class InserirObra implements Command{
     public void execute(HttpServletRequest request, HttpServletResponse response) {
         titulo = request.getParameter("titulo");
         id_artista = Integer.parseInt(request.getParameter("id_artista"));
-        
+        System.out.println(id_artista>0);
         GenericDAO art = new ArtistaDAOConcreto();
-        ArrayList<Object> ids = art.read();
-        Artista artista = null;
+
+        Artista artista = new Artista(id_artista, "Anonimo");
         
-        for (Object id : ids) {
-            Artista a = (Artista)id;
-            if(a.getId()==this.id_artista){
-                artista = new Artista(a.getNome());
+        for (Object obj : art.read()) {
+            Artista a = (Artista)obj;
+            System.out.println(a.getId()+" - "+id_artista);
+            if(a.getId()==id_artista){
+                artista = new Artista(a.getId(), a.getNome());
             }
         }
         

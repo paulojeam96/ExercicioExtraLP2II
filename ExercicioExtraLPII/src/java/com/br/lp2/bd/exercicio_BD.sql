@@ -22,6 +22,6 @@ ALTER TABLE obra ADD FOREIGN KEY (id_artista) REFERENCES artista(pk);
 ALTER TABLE emprestimo ADD FOREIGN KEY (id_obra) REFERENCES obra(pk);
 ALTER TABLE emprestimo ADD FOREIGN KEY (id_usuario) REFERENCES usuario(pk);
 
-SELECT * FROM usuario;
+SELECT * FROM obra;
 
 
