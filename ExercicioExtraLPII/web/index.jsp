@@ -9,9 +9,19 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>JSP Page</title>
+        <title>Registro de Emprestimos</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        
+        <fieldset>
+            <ul>
+                <li>
+                    <p><a href="artista.jsp">Artista</a></p>
+                    <p><a href="emprestimo.jsp">Emprestimo</a></p>
+                    <p><a href="obra.jsp">Obra</a></p>
+                    <p><a href="usuario.jsp">Usuario</a></p>
+                </li>
+            </ul>
+        </fieldset>
     </body>
 </html>
